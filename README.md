@@ -1,47 +1,47 @@
-# Borghi in Vista — European geodata packs
+# Borghi in Vista — Pacchetti geografici europei
 
-Public distribution of independently checked **BIV-GEODATA-V1** data packages.
+Repository pubblico per la distribuzione dei pacchetti **BIV-GEODATA-V1**, verificati tramite un audit indipendente dei file prodotti.
 
-## Initial distribution: terrain only, partial coverage
+## Prima distribuzione: solo dati altimetrici, copertura parziale
 
-[Download the signed release](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261009-r1).
+[Scarica la release con catalogo firmato](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261009-r1).
 
-- **135 validated DEM packages**, approximately 209 MB compressed in total.
-- Copernicus GLO-90 **DSM**, WGS84 horizontal coordinates, EGM2008 heights.
-- Each archive contains a SQLite runtime database, coverage, metadata, source references and original license information.
-- Unknown elevations have an explicit validity mask. **UNKNOWN is never sea level, flat ground or unobstructed terrain.**
-- 14 planned DEM packages with no known samples are not distributed.
-- European POI candidates are **not published**: semantic, licensing and review gates remain open. This is not a complete European places database.
-- Italy's existing built-in database is unchanged and is not redistributed here.
+- **135 pacchetti DEM validati**, circa 209 MB compressi complessivi.
+- Modello di superficie Copernicus GLO-90 (**DSM**), coordinate orizzontali WGS84 e quote riferite a EGM2008.
+- Ogni archivio contiene il database SQLite, la copertura, i metadati, i riferimenti alle fonti e le informazioni originali di licenza.
+- Le quote sconosciute hanno una maschera di validità esplicita. **UNKNOWN non significa livello del mare, terreno piatto o visuale libera.**
+- I 14 pacchetti DEM pianificati senza alcun campione noto non vengono distribuiti.
+- I candidati europei relativi ai punti di interesse (**POI**) **non sono pubblicati**: restano aperti i controlli semantici, di licenza e di revisione. Questa non è una banca dati completa dei luoghi europei.
+- Il database italiano già incluso nell'app rimane invariato e non viene redistribuito qui.
 
-The signed `manifest.json` distinguishes available packages from unavailable and unfinished planning units. Coverage is a tile inventory, not a claim that every height sample is known. No survey precision or completed human field review is claimed.
+Il catalogo firmato `manifest.json` distingue i pacchetti disponibili da quelli non disponibili o ancora in lavorazione. La copertura descrive l'inventario delle celle: non garantisce che ogni campione altimetrico sia noto. Non viene dichiarata una precisione topografica né una verifica umana sul campo già completata.
 
-## Verify before installing
+## Verifica prima dell'installazione
 
-The catalog uses a dedicated Ed25519 key. Public-key fingerprint:
+Il catalogo usa una chiave Ed25519 dedicata. Impronta SHA-256 della chiave pubblica:
 
 `1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd`
 
-Pin this fingerprint through an independently trusted channel; downloading a public key and its manifest from the same untrusted endpoint does not create a trust anchor.
+Verifica questa impronta tramite un canale attendibile indipendente. Scaricare la chiave pubblica e il catalogo dalla stessa fonte non attendibile non basta a garantirne l'autenticità.
 
-Download the release assets to one directory. With Python 3.12+ and `cryptography` installed:
+Scarica i file della release in un'unica cartella. Con Python 3.12 o successivo e il pacchetto `cryptography` installato:
 
 ```sh
 python verify_release.py 1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd
 ```
 
-Verification checks signature, sizes, compressed and uncompressed hashes, archive CRC, SQLite integrity, schema and READY gates. An update must be staged and verified before replacing a last good installation.
+La verifica controlla firma, dimensioni, hash dei file compressi e dei database estratti, CRC degli archivi, integrità SQLite, schema e requisiti dello stato `READY`. Un aggiornamento deve essere preparato e verificato in una posizione temporanea prima di sostituire l'ultima installazione valida.
 
-## Documentation and compatibility
+## Documentazione e compatibilità
 
-- [Data contract](BIV_GEODATA_V1.md)
-- [Distribution, verification and operator upload workflow](DISTRIBUTION.md)
-- [Published releases](https://github.com/antrea/borghi-in-vista-geodata/releases)
+- [Contratto del formato dati](BIV_GEODATA_V1.md)
+- [Distribuzione, verifica e procedura di caricamento](DISTRIBUTION.md)
+- [Release pubblicate](https://github.com/antrea/borghi-in-vista-geodata/releases)
 
-Android build 161 has **not** been modified and does not yet support downloading or reading these packages. This repository distributes data for a future compatible reader; it is not an Android app release.
+La build Android 161 **non è stata modificata** e non supporta ancora il download o la lettura di questi pacchetti. Questo repository distribuisce dati destinati a un futuro lettore compatibile: non contiene una nuova release dell'app Android.
 
-## Licenses and privacy
+## Licenze e riservatezza
 
-Terrain is distributed under the original Copernicus GLO-90 terms included in each archive, with source attribution. Other data sources do not automatically share that license; POI candidates are withheld until their own gates pass. See each package's `LICENSES.txt`, original license document, metadata and `sources.json`.
+I dati altimetrici vengono distribuiti secondo i termini originali Copernicus GLO-90 inclusi in ogni archivio, con attribuzione della fonte. Le altre fonti non condividono automaticamente questa licenza: i candidati POI restano esclusi fino al superamento dei propri controlli. Consulta `LICENSES.txt`, il documento originale di licenza, i metadati e `sources.json` di ciascun pacchetto.
 
-No application source, signing private key, credentials, phone logs, user location, photographs, raw importer ledgers, intermediate POI bundles or quarantine databases are included. Large runtime archives are release assets, not Git objects. Published releases are immutable; corrections require a new signed release.
+Non sono inclusi il codice sorgente dell'app, la chiave privata di firma, credenziali, log del telefono, posizione dell'utente, fotografie, registri grezzi di importazione, pacchetti POI intermedi o database di quarantena. Gli archivi dei dati sono allegati alle release, non salvati nella cronologia Git. Le release pubblicate sono immutabili: ogni correzione ai dati richiede una nuova release firmata.
