@@ -8,6 +8,13 @@ def run(args,json_result=False):
 def all_assets(target,release_id):
     pages=run(['api',f'repos/{target}/releases/{release_id}/assets?per_page=100','--paginate','--slurp'],True)
     return [asset for page in pages for asset in page]
+
+def find_release(target,tag):
+    # An unpublished draft may have no tag ref yet: GET releases/tags/{tag} can 404.
+    pages=run(['api',f'repos/{target}/releases?per_page=100','--paginate','--slurp'],True)
+    matches=[release for page in pages for release in page if release['tag_name']==tag]
+    if len(matches)>1:raise ValueError('DUPLICATE_RELEASE_TAG')
+    return matches[0] if matches else None
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--dry-run',action='store_true');parser.add_argument('--publish-authorized',action='store_true');parser.add_argument('--pin',required=True);args=parser.parse_args();folder=pathlib.Path(__file__).resolve().parent
     m=verify(folder,args.pin);cfg=json.loads((folder/'github-config.json').read_text());owner=cfg['owner'];tag=cfg['tag'];repo=cfg['repository']
@@ -22,7 +29,8 @@ def main():
     if p.returncode:run(['release','create',tag,'-R',target,'--draft','--title',tag,'--notes','BIV-GEODATA-V1 signed assets; see manifest and licenses.'])
     else:
         if not json.loads(p.stdout)['isDraft']:raise ValueError('STABLE_RELEASE_IS_IMMUTABLE_NEW_TAG_REQUIRED')
-    release=run(['api',f'repos/{target}/releases/tags/{tag}'],True)
+    release=find_release(target,tag)
+    if release is None:raise ValueError('DRAFT_RELEASE_NOT_VISIBLE')
     if not release['draft']:raise ValueError('RELEASE_NOT_DRAFT')
     existing={a['name']:a for a in all_assets(target,release['id'])}
     if set(existing)-{p.name for p in files}:raise ValueError('UNKNOWN_REMOTE_ASSET')
@@ -32,7 +40,8 @@ def main():
             if old.get('digest')!='sha256:'+sha(path) or old['size']!=path.stat().st_size:raise ValueError('EXISTING_ASSET_UNVERIFIED_OR_MISMATCH_NEVER_CLOBBER')
             print('EXACT_REMOTE_ASSET_SKIP',path.name);continue
         run(['release','upload',tag,str(path),'-R',target]);time.sleep(1)
-    after=run(['api',f'repos/{target}/releases/tags/{tag}'],True)
+    after=find_release(target,tag)
+    if after is None:raise ValueError('UPLOADED_RELEASE_NOT_VISIBLE')
     for a in all_assets(target,after['id']):
         path=folder/a['name']
         if a.get('digest')!='sha256:'+sha(path) or a['size']!=path.stat().st_size:raise ValueError('REMOTE_POST_UPLOAD_VERIFICATION')
