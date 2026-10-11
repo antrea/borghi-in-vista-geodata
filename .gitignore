@@ -1,0 +1,16 @@
+# Only explicitly reviewed public documentation and catalogs belong in Git.
+*.zip
+*.sqlite
+*.pbf
+*.dpapi
+*.pem
+*.key
+private_signing/
+private_tools/
+inputs/
+audit/
+state/
+evidence/
+packs-checkpoint/
+.deps/
+__pycache__/
