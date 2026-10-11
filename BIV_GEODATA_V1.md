@@ -28,7 +28,7 @@ Shared boundary height and mask samples must be equal. A catalog coverage polygo
 
 Dedicated Ed25519 catalog signing key, current-user Windows DPAPI encryption at rest, private folder excluded from Git/public delivery. Public key pinning is a future Android requirement. The public-key file downloaded from the same untrusted server is not by itself a trust anchor. Distribution is https://github.com/antrea/borghi-in-vista-geodata ; relative asset names and definitive HTTPS download URLs are both signed. Release tags are immutable; never alter published stable assets.
 
-No network publication without separate explicit authorization. Public repository under `borghi-in-vista-geodata` is not created automatically. CLI supports dry-run, verifies local checksums, refuses unknown/mismatched existing remote assets, resumes exact matches and never uses clobber. No authentication tokens embedded in files.
+No network publication without separate explicit authorization. The authorized public repository is `antrea/borghi-in-vista-geodata`; no alternative repository is created. Publication verifies local checksums, refuses unknown/mismatched existing remote assets, resumes exact matches and never uses clobber. No authentication tokens embedded in files. Catalog r2 references the original immutable 135 DEM URLs from r1 and only two new, independently qualified swisstopo point packages. Assets are uploaded to a draft, verified, then published immutably. The main catalog pointer advances only after all new public HTTPS downloads have matching size/hash. Previously signed revisions remain available for rollback.
 
 ## Quality meanings
 
