@@ -1,56 +1,60 @@
-# Borghi in Vista — Pacchetti geografici europei
+# Borghi in Vista — Pacchetti geografici europei gratuiti
 
-Repository pubblico per la distribuzione dei pacchetti **BIV-GEODATA-V1**, verificati tramite un audit indipendente dei file prodotti.
+Borghi in Vista è un'app Android **100% gratuita**. Anche i pacchetti geografici sono gratuiti: nessun acquisto, abbonamento o entitlement sui dati.
 
-## Pacchetti disponibili: copertura parziale, non tutta Europa
+## Pacchetti disponibili
 
-[**Ultimo catalogo firmato r2**](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261012-r2). Gli ZIP si trovano negli **Assets delle Releases**, non nelle cartelle del codice.
+[**Catalogo firmato r3 e nuovi pacchetti Gran Bretagna**](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261012-r3). Gli ZIP sono negli **Assets delle Releases**, non nelle cartelle del codice.
 
-| Contenuto | Pacchetti | Record/dimensione | Dove scaricare |
-| --- | ---: | --- | --- |
-| Terreno Copernicus GLO-90 DSM | 135 | 208.719.093 byte ZIP | [Release DEM r1](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261009-r1) |
-| Punti ufficiali Svizzera | 1 | 12.594 punti; 3.280.510 byte ZIP | [POI Svizzera](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r2/poi-ch-eu-core-20261012-r2.zip) |
-| Punti ufficiali Liechtenstein | 1 | 36 punti; 78.062 byte ZIP | [POI Liechtenstein](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r2/poi-li-eu-core-20261012-r2.zip) |
+| Fonte e territorio | Pacchetti | Record | Download |
+| --- | ---: | ---: | --- |
+| Terreno Copernicus GLO-90 DSM | 135 | 208.719.093 byte ZIP | [DEM r1](https://github.com/antrea/borghi-in-vista-geodata/releases/tag/geodata-eu-core-20261009-r1) |
+| swisstopo Svizzera | 1 | 12.594 | [Svizzera r2](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r2/poi-ch-eu-core-20261012-r2.zip) |
+| swisstopo Liechtenstein | 1 | 36 | [Liechtenstein r2](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r2/poi-li-eu-core-20261012-r2.zip) |
+| OS Open Names Gran Bretagna, unità 0 | 1 | 21.220 | [Gran Bretagna 0 r3](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r3/poi-gb-0-eu-core-20261012-r3.zip) |
+| OS Open Names Gran Bretagna, unità 1 | 1 | 11.746 | [Gran Bretagna 1 r3](https://github.com/antrea/borghi-in-vista-geodata/releases/download/geodata-eu-core-20261012-r3/poi-gb-1-eu-core-20261012-r3.zip) |
 
-Il catalogo r2 contiene **137 pacchetti READY**. Riusa gli URL immutabili dei 135 DEM r1: non sono stati ricostruiti né caricati due volte. I 12.630 POI nuovi sono un sottoinsieme ufficiale qualificato, non tutti i luoghi esistenti nei due paesi.
+Il catalogo comprende **139 pacchetti READY**, con **45.596 POI pubblicati**. Riusa i 137 pacchetti immutabili r1/r2 senza ricostruirli né duplicarli. La copertura POI è un **sottoinsieme qualificato**, non tutta Europa e non un censimento completo dei tre territori. La fonte britannica non copre l'Irlanda del Nord.
 
-- **135 pacchetti DEM validati**, circa 209 MB compressi complessivi.
-- Modello di superficie Copernicus GLO-90 (**DSM**), coordinate orizzontali WGS84 e quote riferite a EGM2008.
-- Ogni archivio contiene il database SQLite, la copertura, i metadati, i riferimenti alle fonti e le informazioni originali di licenza.
-- Le quote sconosciute hanno una maschera di validità esplicita. **UNKNOWN non significa livello del mare, terreno piatto o visuale libera.**
-- Dei 14 pacchetti DEM senza campioni noti, due fonti costiere non rilevano terra in 13 unità, nei limiti della loro risoluzione. Una ulteriore unità contiene evidenza di una piccola isola, ma le sorgenti GLO-90 e GLO-30 interrogate non forniscono la cella. Nessun DEM vuoto o quota inventata viene pubblicato.
-- Gli altri candidati europei POI **non sono pubblicati**: manca la qualificazione della compatibilità di licenza della combinazione OSM/GeoNames. I poligoni privi di anchor fisico qualificato non vengono trasformati automaticamente in punti AR. Questa non è una banca dati completa dei luoghi europei.
-- Il database italiano già incluso nell'app rimane invariato e non viene redistribuito qui.
+I 32.966 nuovi punti provengono esclusivamente da OS Open Names: City, Town, Village, Hamlet, Waterfall e Coastal Headland. Tutti sono riletti dalla fonte originale, con un'operazione di coordinate indipendente e 120 campioni automatici stratificati. Il controllo non è una verifica umana sul panorama. Ambiguità Hill Or Mountain, oggetti areali senza anchor qualificato e attività commerciali improprie non vengono ammessi per aumentare artificialmente la copertura.
 
-Il catalogo firmato `manifest.json` distingue i pacchetti disponibili da quelli non disponibili o ancora in lavorazione. La copertura descrive l'inventario delle celle: non garantisce che ogni campione altimetrico sia noto. Non viene dichiarata una precisione topografica né una verifica umana sul campo già completata.
+## Licenze e provenienza
 
-## Verifica prima dell'installazione
+I database britannici sono distribuiti come derivazioni autonome sotto **Open Government Licence 3.0**, con le attribuzioni originali OS, Royal Mail e National Statistics e il testo di licenza dentro ogni ZIP. Non usano selezioni, join o deduplicazioni OSM/GeoNames. I campi di collegamento GeoNames/DBpedia del prodotto nazionale non sono usati né copiati.
 
-Il catalogo usa una chiave Ed25519 dedicata. Impronta SHA-256 della chiave pubblica:
+I pacchetti svizzeri sono attribuiti a swisstopo; i DEM mantengono i termini originali Copernicus inclusi nei singoli archivi. Ogni SQLite conserva origine, identificativi, versione e hash della fonte, regola di tipo, metodo di anchor e condizioni di licenza. Il contratto mantiene sette categorie e quaranta tipi; non implica che ogni fonte fornisca record validi per tutti i tipi.
+
+**296.589 candidati OSM/GeoNames rimangono non pubblicati**. Tutti dipendono da GeoNames nell'ammissione; alcuni anche nell'assegnazione del paese o nella scelta del vertice. Pubblicare il derivato sotto ODbL e renderlo gratuito non dimostra da solo la compatibilità delle ulteriori componenti CC BY 4.0. La questione precisa e le alternative sono in [Licenze e completamento](LICENSE_QUALIFICATION_R3.md) e nel [report machine-readable](license-qualification.json). Nessuna autorizzazione del titolare viene inventata e la provenienza non viene rimossa per simulare un'origine OSM-only.
+
+## Terreno e geometrie
+
+Il terreno è un modello di superficie **DSM GLO-90**, non DTM, con coordinate WGS84 e quote EGM2008. I campioni ignoti hanno una maschera esplicita: **UNKNOWN non significa quota zero o visuale libera**. Le quote POI non qualificate restano NULL.
+
+Tredici unità aggiuntive non mostrano terra nelle due fonti costiere controllate, nei limiti della risoluzione. Una unità, `dem-eu-07-10`, contiene evidenza di Rockall ma le celle GLO-90/GLO-30 N57W014 non sono disponibili. Nessun DEM vuoto o quota inventata viene pubblicato. I label e centroidi di aree non qualificati non diventano automaticamente punti AR.
+
+## Verifica del catalogo e rollback
+
+Firma Ed25519, impronta SHA-256 della chiave pubblica:
 
 `1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd`
 
-Verifica questa impronta tramite un canale attendibile indipendente. Scaricare la chiave pubblica e il catalogo dalla stessa fonte non attendibile non basta a garantirne l'autenticità.
+L'impronta deve essere verificata tramite un canale attendibile indipendente. Scaricare chiave e catalogo dalla stessa fonte non attendibile non basta a garantirne l'autenticità.
 
-Scarica i 13 file r2 nella stessa cartella e i 135 ZIP DEM r1 in una cartella cache. Con Python 3.12 o successivo e il pacchetto `cryptography` installato:
+Scarica tutti i file della r3 in una cartella, i 135 ZIP r1 e i due ZIP r2 in cartelle cache. Con Python 3.12+ e `cryptography`, esegui dalla cartella r3:
 
 ```sh
-python verify_catalog.py 1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd /percorso/cache-dem-r1
+python verify_catalog.py 1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd /cache-r1 /cache-r2
 ```
 
-La verifica controlla firma, dimensioni, hash dei file compressi e dei database estratti, CRC degli archivi, integrità SQLite, schema e requisiti dello stato `READY`. I file assenti vengono dichiarati **non verificati**, mai PASS. Un aggiornamento deve essere preparato e verificato in una posizione temporanea prima di sostituire l'ultima installazione valida, conservando il precedente database per rollback.
+Il controllo verifica firma, checksum, CRC, hash e integrità SQLite, schema e gate READY. Gli archivi mancanti sono **non verificati**, non PASS. La sostituzione di un database va preparata e verificata in una posizione temporanea, promossa atomicamente e accompagnata da una copia precedente per rollback. Le release sono immutabili: una modifica ai dati richiede nuova versione, nuovo hash e nuovo catalogo firmato.
 
-## Documentazione e compatibilità
+## Documentazione e compatibilità Android
 
-- [Contratto del formato dati](BIV_GEODATA_V1.md)
-- [Distribuzione, verifica e procedura di caricamento](DISTRIBUTION.md)
-- [Release pubblicate](https://github.com/antrea/borghi-in-vista-geodata/releases)
-- [Inventario della distribuzione parziale](completion-report.json)
+- [Contratto BIV-GEODATA-V1](BIV_GEODATA_V1.md)
+- [Distribuzione](DISTRIBUTION.md)
+- [Inventario](completion-report.json)
+- [Tutte le release](https://github.com/antrea/borghi-in-vista-geodata/releases)
 
-La build Android 161 **non è stata modificata** e non supporta ancora il download o la lettura di questi pacchetti. Questo repository distribuisce dati destinati a un futuro lettore compatibile: non contiene una nuova release dell'app Android.
+**Android 161 rimane invariato e non supporta ancora il download e la lettura di questi pacchetti.** I dati sono disponibili per un futuro lettore compatibile; questo repository non contiene una nuova versione dell'app.
 
-## Licenze e riservatezza
-
-I dati altimetrici vengono distribuiti secondo i termini originali Copernicus GLO-90 inclusi in ogni archivio, con attribuzione della fonte. I nuovi punti POI ufficiali sono attribuiti a swisstopo; identità, nomi e coordinate sono verificati contro lo snapshot originale, senza quote o accuratezze di rilievo inventate. Le altre fonti non condividono automaticamente queste licenze: i candidati misti restano esclusi fino al superamento dei propri controlli. Consulta `LICENSES.txt`, il documento originale di licenza, i metadati e `sources.json` di ciascun pacchetto. Non si dichiara verifica umana sul campo né una percentuale di precisione.
-
-Non sono inclusi il codice sorgente dell'app, la chiave privata di firma, credenziali, log del telefono, posizione dell'utente, fotografie, registri grezzi di importazione, pacchetti POI intermedi o database di quarantena. Gli archivi dei dati sono allegati alle release, non salvati nella cronologia Git. Le release pubblicate sono immutabili: ogni correzione ai dati richiede una nuova release firmata.
+Non sono pubblicati codice Android, chiavi private, credenziali, dati del telefono, fotografie, coordinate utente, ledger grezzi o pacchetti intermedi sospesi.
