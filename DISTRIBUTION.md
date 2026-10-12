@@ -30,3 +30,15 @@ Il fingerprint va ottenuto da un canale indipendente attendibile. Il tool verifi
 Staging privato → verifica ZIP/hash/schema/capability → promozione atomica → conservazione della versione precedente per rollback. Le quote Copernicus sono DSM GLO-90 in EGM2008, non DTM né quote topografiche garantite. Maschera UNKNOWN obbligatoria, inclusi campioni di mare e celle con sorgente assente. L'interpolazione che tocca UNKNOWN deve restare conservativa.
 
 Android 161 resta invariato: **non implementa ancora il downloader né questo contratto dei pacchetti**. I dati non richiedono trasformazioni server-side aggiuntive, ma richiedono un futuro reader compatibile. Ogni fonte mantiene termini e attribuzioni separati, inclusi negli archivi. Nessuna verifica umana sul campo o percentuale di precisione viene dichiarata.
+
+## Revisione OSM autonoma r4
+
+Il catalogo r4 aggiunge nuovi pacchetti OSM autonomi sotto ODbL senza pubblicare la derivazione mista storica. I 135 DEM r1 e i quattro pacchetti nazionali r2/r3 mantengono URL, tag, byte e licenze originali. I nuovi ID `-osm` sono preferiti per le unità qualificate; il futuro loader deve scegliere UNA sola sorgente per unità, con capability `SOURCE_LAYER_SELECTION_V1`. Non unire automaticamente le alternative nazionali con OSM.
+
+Per verificare r4, scaricare i file della nuova release e fornire al verificatore anche le tre cartelle cache r1/r2/r3:
+
+```sh
+python verify_catalog.py 1d19021c63713e5a1df784a25102fe277497353f81eb02afe4c5b44226607ccd /cache/r1 /cache/r2 /cache/r3
+```
+
+`completion-report.json` espone i conteggi effettivi e le unità ancora non READY. `OSM_ONLY_QUALITY_R4.md` distingue audit tecnico, attendibilità dei tag, precisione sconosciuta e copertura parziale. `OSM_ONLY_REBUILD.md` e `osm-rebuild-tools.zip` documentano la rigenerazione. La promozione del ramo principale avviene solo dopo download pubblico e SHA-256 di TUTTI i nuovi file, senza alterare le release precedenti.

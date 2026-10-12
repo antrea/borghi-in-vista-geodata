@@ -37,3 +37,11 @@ ACCEPTED is an evidence decision, not measured AR accuracy or human inspection. 
 ## License separation
 
 Copernicus GLO-90 follows its own original terms (the GLO-90 section, not restricted higher-resolution sections). OSM-derived data is subject to ODbL and attribution. GeoNames is CC BY 4.0; a combined derivative is **not automatically declared legally compatible**. OSM Foundation identifies CC BY attribution/technical-measures concerns. Mixed candidates remain pending legal compatibility unless the source-combination basis is resolved. This does not block independent terrain generation. Source ledgers are local, no provider permission or waiver is invented.
+
+## Autonomous OSM r4 addendum
+
+r4 does not release the old mixed candidates. It independently selects original OSM tags, identities and physical geometry under ODbL. GeoNames names, matches, feature codes, coordinates and country decisions do not enter that selection. Each archive includes the original-source hashes, attribution and license URI. Source-attested localized names use the existing `ATTESTED_LOCALIZED` kind (the earlier prose ordering `LOCALIZED_ATTESTED` was not an enum change).
+
+New source-qualified pack IDs end in `-osm`. Historical national datasets remain immutable alternative layers, not implicit unions. `SOURCE_LAYER_SELECTION_V1` is a required catalog capability: select exactly one source layer for each planning unit. A reader without this capability must reject r4 rather than load duplicates. All 7 categories and 40 type identifiers remain unchanged, even where a type has no qualified rows.
+
+An additional ignorable `source_geometry` table retains original WKB, anchor method and representation extent. For derived physical anchors, uncertainty denotes representation extent, **not measured survey accuracy**, as explicitly stated in `origin.validation_evidence`. Original points remain unshifted; their survey accuracy is unknown. No automatic centroid, invented height or change to Android 161 is introduced. READY is qualified subset coverage, not a complete country census or human verification.
